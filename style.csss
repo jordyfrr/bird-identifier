@@ -1,4 +1,6 @@
-/* Aesthetic: minimal cards, soft shadows, light neutral background, green accent for buttons and confidence bar. */
+/* ===========================
+   Global + Layout
+   =========================== */
 
 * {
   box-sizing: border-box;
@@ -6,22 +8,22 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: #f4f7f5;
   color: #123026;
 }
 
 .site-header {
   text-align: center;
-  padding: 20px 10px;
+  padding: 22px 10px;
   background: #e4f5ea;
   border-bottom: 1px solid #c8e3d2;
 }
 
 .site-header h1 {
   margin: 0;
-  font-size: 1.9rem;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 .site-header p {
@@ -31,24 +33,29 @@ body {
 }
 
 main {
-  max-width: 960px;
-  margin: 20px auto 40px;
-  padding: 0 10px;
+  max-width: 980px;
+  margin: 24px auto 40px;
+  padding: 0 12px;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 18px;
 }
+
+/* ===========================
+   Card Containers
+   =========================== */
 
 .card {
   background: #ffffff;
-  border-radius: 10px;
-  padding: 16px 18px 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  padding: 18px 20px 22px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
 
 .card h2 {
   margin-top: 0;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
 .hint {
@@ -56,28 +63,13 @@ main {
   color: #6b7f74;
 }
 
-.upload-section input[type="file"] {
-  margin-top: 10px;
-}
-
-.preview-wrapper {
-  margin-top: 12px;
-  display: flex;
-  justify-content: center;
-}
-
-#preview {
-  max-width: 260px;
-  max-height: 260px;
-  border-radius: 8px;
-  object-fit: cover;
-  display: none;
-  border: 1px solid #d4e3da;
-}
+/* ===========================
+   Buttons
+   =========================== */
 
 button {
-  margin-top: 12px;
-  padding: 8px 16px;
+  margin-top: 14px;
+  padding: 10px 18px;
   border-radius: 6px;
   border: none;
   background: #2f9b5a;
@@ -85,10 +77,27 @@ button {
   font-size: 0.95rem;
   cursor: pointer;
   transition: background 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 button:hover {
   background: #257a47;
+}
+
+button:disabled {
+  background: #9fcfb3;
+  cursor: not-allowed;
+}
+
+/* ===========================
+   Status + Loading
+   =========================== */
+
+#status {
+  margin-top: 10px;
+  font-size: 0.9rem;
 }
 
 .loading {
@@ -107,73 +116,139 @@ button:hover {
   display: none;
 }
 
-.prediction-section .out {
-  background: #f7faf8;
-  border-radius: 6px;
-  padding: 10px;
-  font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-  font-size: 0.9rem;
-  border: 1px solid #d4e3da;
-  white-space: pre-wrap;
-}
+/* ===========================
+   Wave Animation (Listening)
+   =========================== */
 
-.confidence-row {
-  margin-top: 10px;
+#wave {
+  margin-top: 18px;
+  height: 70px;
+  background: #e8f4ee;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  justify-content: center;
 }
 
-#conf-label {
+#wave.listening {
+  animation: pulse 1.4s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { background: #e8f4ee; }
+  50% { background: #d4f0e2; }
+  100% { background: #e8f4ee; }
+}
+
+#wave-main-label {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#wave-sub-label {
+  font-size: 0.85rem;
+  color: #4f6d5f;
+  margin-top: 4px;
+}
+
+/* ===========================
+   Prediction Display
+   =========================== */
+
+#current-prediction {
+  margin-top: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.prediction-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 50px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.prediction-label {
   font-size: 0.9rem;
+  font-weight: 500;
 }
 
-.conf-bar-outer {
+.prediction-bar-wrapper {
   width: 100%;
   height: 10px;
-  border-radius: 999px;
   background: #e0ece5;
+  border-radius: 999px;
   overflow: hidden;
 }
 
-.conf-bar-inner {
+.prediction-bar {
   height: 100%;
   width: 0%;
   background: linear-gradient(90deg, #2f9b5a, #8fdc7f);
   transition: width 0.25s ease;
 }
 
-.bird-info-section img {
-  max-width: 220px;
-  border-radius: 8px;
-  display: block;
-  margin-bottom: 10px;
+.prediction-score {
+  font-size: 0.85rem;
+  text-align: right;
+  color: #345c4a;
 }
 
-.bird-meta {
-  font-size: 0.9rem;
-  margin-bottom: 6px;
+/* ===========================
+   Bird Info Panel
+   =========================== */
+
+#bird-info {
+  margin-top: 16px;
+  padding: 14px;
+  background: #f7faf8;
+  border-radius: 10px;
+  border: 1px solid #d4e3da;
+  font-size: 0.92rem;
+  line-height: 1.45;
 }
 
-.bird-meta strong {
+#bird-info p {
+  margin: 6px 0;
+}
+
+#bird-info strong {
   font-weight: 600;
 }
 
-.bird-description {
-  margin-top: 8px;
-  font-size: 0.9rem;
+/* ===========================
+   Audio Upload
+   =========================== */
+
+#audio-upload {
+  display: none;
 }
 
-.location-list {
-  margin-top: 10px;
-  font-size: 0.9rem;
+/* ===========================
+   Model Loading Overlay
+   =========================== */
+
+#model-loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 }
 
-.location-list ul {
-  padding-left: 18px;
-  margin: 4px 0 0;
+#loading-text {
+  font-size: 1.2rem;
+  color: #2f5f3f;
 }
+
+/* ===========================
+   Responsive Layout
+   =========================== */
 
 @media (min-width: 800px) {
   main {
@@ -183,13 +258,10 @@ button:hover {
       "bird bird";
   }
 
-  .upload-section {
-    grid-area: upload;
-  }
-
-  .prediction-section {
-    grid-area: prediction;
-  }
+  .upload-section { grid-area: upload; }
+  .prediction-section { grid-area: prediction; }
+  .bird-info-section { grid-area: bird; }
+}
 
   .bird-info-section {
     grid-area: bird;
