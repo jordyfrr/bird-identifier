@@ -2,75 +2,69 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Bird Identifier</title>
+    <title>Bird Identifier – Image Classifier</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
 
-    <!-- TensorFlow.js (REQUIRED) -->
+    <!-- TensorFlow.js (for image model) -->
     <script src="https://unpkg.com/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
-
-    <!-- Teachable Machine Audio Library -->
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/audio@0.8/dist/teachablemachine-audio.min.js"></script>
   </head>
 
   <body>
     <header class="site-header">
       <h1>Bird Identifier</h1>
-      <p>Upload a bird call or use your microphone to identify the species.</p>
+      <p>Upload a bird photo to identify the species and learn quick facts.</p>
     </header>
 
     <main>
-      <!-- Upload Section -->
+      <!-- Upload / Image card -->
       <section class="card upload-section">
-        <h2>Upload a Bird Call</h2>
-        <p class="hint">Upload an audio clip to begin.</p>
+        <h2>Upload a bird photo</h2>
+        <p class="hint">
+          Choose a clear photo of a single bird. The model will try to guess the species.
+        </p>
 
-        <button id="btn-upload">Upload Audio</button>
-        <input type="file" id="audio-upload" accept="audio/*" />
+        <input type="file" id="upload" accept="image/*" />
 
-        <div id="status"></div>
-
-        <div id="wave">
-          <div id="wave-main-label">Model loading…</div>
-          <div id="wave-sub-label"></div>
+        <div class="preview-wrapper">
+          <img id="preview" alt="Bird preview" />
         </div>
 
-        <button id="btn-listen" disabled>
-          🎙 Start listening
-        </button>
+        <button id="analyzeBtn">Analyze image</button>
+
+        <div id="loading" class="loading hidden"></div>
+        <div id="error" class="error hidden"></div>
       </section>
 
-      <!-- Prediction Section -->
+      <!-- Prediction / Confidence card -->
       <section class="card prediction-section">
-        <h2>Predictions</h2>
+        <h2>Prediction</h2>
 
-        <div id="current-prediction">Waiting for model…</div>
+        <pre class="out">No prediction yet. Upload an image to begin.</pre>
 
-        <div id="predictions"></div>
+        <div class="confidence-row">
+          <div id="conf-label">Confidence: 0%</div>
+          <div class="conf-bar-outer">
+            <div id="conf-bar" class="conf-bar-inner"></div>
+          </div>
+        </div>
       </section>
 
-      <!-- Bird Info Section -->
+      <!-- Bird info card -->
       <section class="card bird-info-section">
-        <h2>Bird Information</h2>
+        <h2>Bird information</h2>
         <div id="bird-info">
-          <p>No bird identified yet.</p>
+          <p>
+            After a successful prediction, you’ll see the bird’s common name, scientific name,
+            and a few simple facts here.
+          </p>
         </div>
       </section>
     </main>
 
-    <!-- Model Loading Overlay -->
-    <div id="model-loading-overlay">
-      <div id="loading-text">Loading bird model…</div>
-    </div>
-
-    <!-- Main Script -->
-    <script src="index.js"></script>
-  </body>
-</html>
-
-    <!-- Load your JS LAST -->
+    <!-- Main script (your image model logic) -->
     <script src="index.js"></script>
   </body>
 </html>
