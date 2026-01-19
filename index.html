@@ -2,51 +2,73 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Bird ID — Prediction Only</title>
+    <title>Bird Identifier</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
 
-    <!-- Load TensorFlow.js BEFORE your script -->
-<script src="https://unpkg.com/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
+    <!-- TensorFlow.js (REQUIRED) -->
+    <script src="https://unpkg.com/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
+
+    <!-- Teachable Machine Audio Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/audio@0.8/dist/teachablemachine-audio.min.js"></script>
   </head>
 
   <body>
     <header class="site-header">
       <h1>Bird Identifier</h1>
-      <p>Upload a photo to identify a bird.</p>
+      <p>Upload a bird call or use your microphone to identify the species.</p>
     </header>
 
     <main>
+      <!-- Upload Section -->
       <section class="card upload-section">
-        <h2>Upload a bird photo</h2>
-        <p class="hint">Upload an image to begin.</p>
+        <h2>Upload a Bird Call</h2>
+        <p class="hint">Upload an audio clip to begin.</p>
 
-        <input type="file" id="upload" accept="image/*" />
+        <button id="btn-upload">Upload Audio</button>
+        <input type="file" id="audio-upload" accept="audio/*" />
 
-        <div class="preview-wrapper">
-          <img id="preview" alt="Bird preview" />
+        <div id="status"></div>
+
+        <div id="wave">
+          <div id="wave-main-label">Model loading…</div>
+          <div id="wave-sub-label"></div>
         </div>
 
-        <button id="analyzeBtn">Identify Bird</button>
-
-        <div id="loading" class="loading hidden">Loading...</div>
-        <div id="error" class="error hidden"></div>
+        <button id="btn-listen" disabled>
+          🎙 Start listening
+        </button>
       </section>
 
+      <!-- Prediction Section -->
       <section class="card prediction-section">
-        <h2>Prediction</h2>
+        <h2>Predictions</h2>
 
-        <pre class="out">No prediction yet.</pre>
+        <div id="current-prediction">Waiting for model…</div>
 
-        <div class="confidence-row">
-          <span id="conf-label">Confidence: 0%</span>
-          <div class="conf-bar-outer">
-            <div class="conf-bar-inner" id="conf-bar"></div>
-          </div>
+        <div id="predictions"></div>
+      </section>
+
+      <!-- Bird Info Section -->
+      <section class="card bird-info-section">
+        <h2>Bird Information</h2>
+        <div id="bird-info">
+          <p>No bird identified yet.</p>
         </div>
       </section>
     </main>
+
+    <!-- Model Loading Overlay -->
+    <div id="model-loading-overlay">
+      <div id="loading-text">Loading bird model…</div>
+    </div>
+
+    <!-- Main Script -->
+    <script src="index.js"></script>
+  </body>
+</html>
 
     <!-- Load your JS LAST -->
     <script src="index.js"></script>
