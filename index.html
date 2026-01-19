@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bird ID — Prediction Only</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Load TensorFlow.js BEFORE your script -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <h1>Bird Identifier</h1>
+      <p>Upload a photo to identify a bird.</p>
+    </header>
+
+    <main>
+      <section class="card upload-section">
+        <h2>Upload a bird photo</h2>
+        <p class="hint">Upload an image to begin.</p>
+
+        <input type="file" id="upload" accept="image/*" />
+
+        <div class="preview-wrapper">
+          <img id="preview" alt="Bird preview" />
+        </div>
+
+        <button id="analyzeBtn">Identify Bird</button>
+
+        <div id="loading" class="loading hidden">Loading...</div>
+        <div id="error" class="error hidden"></div>
+      </section>
+
+      <section class="card prediction-section">
+        <h2>Prediction</h2>
+
+        <pre class="out">No prediction yet.</pre>
+
+        <div class="confidence-row">
+          <span id="conf-label">Confidence: 0%</span>
+          <div class="conf-bar-outer">
+            <div class="conf-bar-inner" id="conf-bar"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Load your JS LAST -->
+    <script src="index.js"></script>
+  </body>
+</html>
