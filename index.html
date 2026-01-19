@@ -2,69 +2,46 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Bird Identifier – Image Classifier</title>
+    <title>Bird Identifier – Image Model</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
 
-    <!-- TensorFlow.js (for image model) -->
+    <!-- TensorFlow.js -->
     <script src="https://unpkg.com/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
   </head>
 
   <body>
     <header class="site-header">
       <h1>Bird Identifier</h1>
-      <p>Upload a bird photo to identify the species and learn quick facts.</p>
+      <p>Upload a bird photo to identify the species.</p>
     </header>
 
     <main>
-      <!-- Upload / Image card -->
       <section class="card upload-section">
-        <h2>Upload a bird photo</h2>
-        <p class="hint">
-          Choose a clear photo of a single bird. The model will try to guess the species.
-        </p>
-
+        <h2>Upload a bird image</h2>
         <input type="file" id="upload" accept="image/*" />
 
         <div class="preview-wrapper">
-          <img id="preview" alt="Bird preview" />
+          <img id="preview" />
         </div>
 
-        <button id="analyzeBtn">Analyze image</button>
+        <button id="predictBtn">Identify Bird</button>
 
-        <div id="loading" class="loading hidden"></div>
-        <div id="error" class="error hidden"></div>
+        <div id="status"></div>
       </section>
 
-      <!-- Prediction / Confidence card -->
       <section class="card prediction-section">
         <h2>Prediction</h2>
-
-        <pre class="out">No prediction yet. Upload an image to begin.</pre>
-
-        <div class="confidence-row">
-          <div id="conf-label">Confidence: 0%</div>
-          <div class="conf-bar-outer">
-            <div id="conf-bar" class="conf-bar-inner"></div>
-          </div>
-        </div>
+        <div id="label-container"></div>
       </section>
 
-      <!-- Bird info card -->
       <section class="card bird-info-section">
-        <h2>Bird information</h2>
-        <div id="bird-info">
-          <p>
-            After a successful prediction, you’ll see the bird’s common name, scientific name,
-            and a few simple facts here.
-          </p>
-        </div>
+        <h2>Bird Information</h2>
+        <div id="bird-info"></div>
       </section>
     </main>
 
-    <!-- Main script (your image model logic) -->
     <script src="index.js"></script>
   </body>
 </html>
